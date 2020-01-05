@@ -13,7 +13,7 @@
         android:layout_width="400dp"
         android:layout_height="50dp"
         android:textSize="20sp"
-        android:hint="Email"
+        android:hint="Username"
         android:layout_marginTop="50dp"
         android:inputType="text"
         android:background="@drawable/et_style"
