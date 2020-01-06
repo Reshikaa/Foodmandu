@@ -7,15 +7,15 @@ public class User {
     private String phoneNumber;
     private String username;
     private String password;
-    private String image;
+  //  private String image;
 
-    public User(String firstName, String lastName, String phoneNumber, String username, String password, String image) {
+    public User(String firstName, String lastName, String phoneNumber, String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.username = username;
         this.password = password;
-        this.image = image;
+       // this.image = image;
     }
 
     public String getFirstName() {
@@ -58,11 +58,11 @@ public class User {
         this.password = password;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
+//    public String getImage() {
+//        return image;
+//    }
+//
+//    public void setImage(String image) {
+//        this.image = image;
+//    }
 }

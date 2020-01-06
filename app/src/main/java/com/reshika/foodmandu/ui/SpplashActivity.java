@@ -1,10 +1,13 @@
-package com.reshika.foodmandu;
+package com.reshika.foodmandu.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.reshika.foodmandu.MainActivity;
+import com.reshika.foodmandu.R;
 
 public class SpplashActivity extends AppCompatActivity {
 
@@ -17,7 +20,7 @@ public class SpplashActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SpplashActivity.this,LoginActivity.class);
+                Intent intent = new Intent(SpplashActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }

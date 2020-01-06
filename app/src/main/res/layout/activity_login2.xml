@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".LoginActivity">
-
+    tools:context=".ui.LoginActivity"
+    android:orientation="vertical">
 
     <EditText
         android:id="@+id/etUsername"
@@ -33,7 +32,7 @@
         android:drawablePadding="20sp"/>
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnlogin"
         android:layout_width="400dp"
         android:layout_height="60dp"
         android:layout_marginTop="10dp"
@@ -42,5 +41,12 @@
         android:fontFamily="sans-serif-medium"
         android:background="@drawable/btn_style"
         android:textColor="#FFFFFF"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtView"
+        android:layout_marginTop="10dp"
+        android:text="Not registered yet? Register here"/>
 
 </LinearLayout>
