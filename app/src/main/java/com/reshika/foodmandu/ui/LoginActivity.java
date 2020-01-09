@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.reshika.foodmandu.MainActivity;
 import com.reshika.foodmandu.R;
 import com.reshika.foodmandu.bll.LoginBll;
 import com.reshika.foodmandu.strictmode.StrictModeClass;
@@ -53,10 +54,11 @@ Button btnlogin;
         LoginBll loginBll=new LoginBll();
 
         StrictModeClass.StrictMode();
-        if (loginBll.checkUser(username,password)){
-            Intent intent= new Intent(LoginActivity.this, HomeFragment.class);
+        if (etUsername.getText().toString()!=null){
+            loginBll.checkUser(username,password);
+            Intent intent= new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
-            finish();
+      //      finish();
         }
         else {
             Toast.makeText(this, "Either username or password is incorrect", Toast.LENGTH_SHORT).show();
