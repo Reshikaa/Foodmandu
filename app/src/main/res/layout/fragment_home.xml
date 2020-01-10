@@ -35,8 +35,9 @@
         android:layout_height="wrap_content"/>
 
         <ImageView
-            android:layout_width="421dp"
+            android:layout_width="match_parent"
             android:layout_height="233dp"
+            android:scaleType="fitXY"
             android:src="@drawable/bhaktapur" />
 
         <TextView
@@ -62,6 +63,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="180dp"
+            android:scaleType="fitXY"
             android:src="@drawable/happylunch"/>
 
         <LinearLayout
@@ -104,7 +106,7 @@
         </LinearLayout>
 
         <ImageView
-            android:layout_width="409dp"
+            android:layout_width="match_parent"
             android:layout_height="109dp"
             android:src="@drawable/fonepay" />
 
@@ -123,7 +125,33 @@
             android:scrollbars="vertical"
             app:fastScrollEnabled="false"/>
 
+        <ImageView
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="171dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/high" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="Alcoholic Beverages"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="10dp"
+            android:text="Selection of Finest Liqours in attractive prices"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recyclerView_d"
+            android:orientation="horizontal"
+            android:layout_marginTop="1dp"
+            android:scrollbars="horizontal"
+            app:fastScrollEnabled="false"/>
 
     </LinearLayout>
 

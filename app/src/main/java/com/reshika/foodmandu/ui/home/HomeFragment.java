@@ -15,12 +15,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.reshika.foodmandu.api.AlcoholApi;
 import com.reshika.foodmandu.api.NewMembersApi;
 import com.reshika.foodmandu.api.Super;
+import com.reshika.foodmandu.model.Alcohol;
 import com.reshika.foodmandu.model.Bakery;
 import com.reshika.foodmandu.model.Detail;
 import com.reshika.foodmandu.model.Member;
 import com.reshika.foodmandu.strictmode.StrictModeClass;
+import com.reshika.foodmandu.ui.AlcoholAdapter;
 import com.reshika.foodmandu.ui.BakeryAdapter;
 import com.reshika.foodmandu.ui.DetailAdapter;
 import com.reshika.foodmandu.ui.FoodAdapter;
@@ -52,8 +55,11 @@ public class HomeFragment extends Fragment {
     MembersAdapter MembersAdapter;
     ImageView imgmember;
 
+    List<Alcohol> alcoholList;
+    AlcoholAdapter AlcoholAdapter;
+
     private HomeViewModel homeViewModel;
-    ImageView card1;
+    ImageView card1,card2;
 
     private int[] mImages=new int[]{
             R.drawable.a,R.drawable.b,R.drawable.c,R.drawable.d
@@ -61,7 +67,7 @@ public class HomeFragment extends Fragment {
     private String [] mImageTitle=new String[]{
             "Liquor","MoMo","Sauce","juice"
     };
-    private RecyclerView recyclerView,recyclerView_a,recyclerView_b,recyclerView_c;
+    private RecyclerView recyclerView,recyclerView_a,recyclerView_b,recyclerView_c,recyclerView_d;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -89,8 +95,10 @@ public class HomeFragment extends Fragment {
         recyclerView_a=view.findViewById(R.id.recyclerView_a);
         recyclerView_b=view.findViewById(R.id.recyclerView_b);
         recyclerView_c=view.findViewById(R.id.recyclerView_c);
+        recyclerView_d=view.findViewById(R.id.recyclerView_d);
 
         card1=view.findViewById(R.id.card1);
+        card2=view.findViewById(R.id.card2);
 
         List<Food> foodList=new ArrayList<>();
         foodList.add(new Food("Restaurants",R.drawable.res));
@@ -128,6 +136,7 @@ public class HomeFragment extends Fragment {
 
         super7();
         newmember();
+        alcohol();
         return view;
     }
 
@@ -169,9 +178,9 @@ public class HomeFragment extends Fragment {
         memberList = new ArrayList();
         NewMembersApi membersApi=Url.getInstance().create(NewMembersApi.class);
 
-        Call<List<Member>> listCall3= membersApi.getNewMembers();
+        Call<List<Member>> listCall4= membersApi.getNewMembers();
 
-        listCall3.enqueue(new Callback<List<Member>>() {
+        listCall4.enqueue(new Callback<List<Member>>() {
             @Override
             public void onResponse(Call<List<Member>> call, Response<List<Member>> response) {
                 if (!response.isSuccessful()){
@@ -190,6 +199,36 @@ public class HomeFragment extends Fragment {
 
                 Log.d("Error message","Error" + t.getLocalizedMessage());
                 Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private void alcohol(){
+        alcoholList = new ArrayList();
+        AlcoholApi alcoholApi=Url.getInstance().create(AlcoholApi.class);
+
+        Call<List<Alcohol>> listCall3= alcoholApi.getAlcohol();
+
+        listCall3.enqueue(new Callback<List<Alcohol>>() {
+            @Override
+            public void onResponse(Call<List<Alcohol>> call, Response<List<Alcohol>> response) {
+                if (!response.isSuccessful()){
+                    Toast.makeText(getContext(), "Error" + response.code(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                List<Alcohol> alcoholList1=response.body();
+                AlcoholAdapter = new AlcoholAdapter(getContext(),alcoholList1);
+                recyclerView_d.setAdapter(AlcoholAdapter);
+                recyclerView_d.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+            }
+
+            @Override
+            public void onFailure(Call<List<Alcohol>> call, Throwable t) {
+                Log.d("Error message","Error" + t.getLocalizedMessage());
+                Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+
             }
         });
 
