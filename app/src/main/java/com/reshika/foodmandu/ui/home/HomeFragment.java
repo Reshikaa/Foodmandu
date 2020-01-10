@@ -59,6 +59,7 @@ public class HomeFragment extends Fragment {
     AlcoholAdapter AlcoholAdapter;
 
     private HomeViewModel homeViewModel;
+    //binding
     ImageView card1,card2;
 
     private int[] mImages=new int[]{
