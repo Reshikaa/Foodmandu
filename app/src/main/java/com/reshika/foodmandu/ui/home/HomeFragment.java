@@ -152,7 +152,7 @@ public class HomeFragment extends Fragment {
                     Toast.makeText(getContext(), "Error" + response.code(), Toast.LENGTH_SHORT).show();
                     return;
                 }
-
+////binding
                 List<Detail> detailList1=response.body();
                 DetailAdapter =new DetailAdapter(getContext(),detailList1);
 
