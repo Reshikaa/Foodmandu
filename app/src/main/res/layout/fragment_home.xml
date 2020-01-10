@@ -39,6 +39,20 @@
             android:layout_height="233dp"
             android:src="@drawable/bhaktapur" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Super 7"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="9sp"
+            android:text="Change your taste bud everyday"
+            />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView_a"
             android:layout_width="match_parent"
@@ -50,10 +64,64 @@
             android:layout_height="180dp"
             android:src="@drawable/happylunch"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:orientation="vertical"
+            android:background="#1a0000">
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:textColor="#FFFFFF"
+                android:text="IN THE SPOTLIGHT"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:textColor="#FFFFFF"
+                android:text="Chef's special mention"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_b"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="1dp"
+            android:scrollbars="horizontal"
+            app:fastScrollEnabled="false"
+            />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@drawable/bd" />
+
+        </LinearLayout>
+
         <ImageView
             android:layout_width="409dp"
             android:layout_height="109dp"
             android:src="@drawable/fonepay" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="New Members"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recyclerView_c"
+            android:orientation="vertical"
+            android:layout_marginTop="1dp"
+            android:scrollbars="vertical"
+            app:fastScrollEnabled="false"/>
 
 
 

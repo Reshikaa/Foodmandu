@@ -1,6 +1,7 @@
 package com.reshika.foodmandu.api;
 
 import com.reshika.foodmandu.model.User;
+import com.reshika.foodmandu.model.username;
 import com.reshika.foodmandu.serverresponse.ImageResponse;
 import com.reshika.foodmandu.serverresponse.SignUpResponse;
 
@@ -19,10 +20,12 @@ public interface UserApi {
     @POST("user/signup")
     Call<SignUpResponse> registerUser(@Body User user);
 
-    @FormUrlEncoded
-    @POST("user/login")
-    Call<SignUpResponse> checkUser(@Field("username") String username, @Field("password") String password);
+//    @FormUrlEncoded
+//    @POST("user/login")
+//    Call<SignUpResponse> checkUser(@Field("username") String username, @Field("password") String password);
 
+    @POST("user/login")
+    Call<SignUpResponse> checklogin(@Body username Username);
 
     @Multipart
     @POST("upload")

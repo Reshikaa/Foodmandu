@@ -1,17 +1,17 @@
 package com.reshika.foodmandu.model;
 
-public class Detail {
+public class Member {
 
     public String name;
     public String location;
-    public String image;
     public String itemtype;
+    public String image;
 
-    public Detail(String name, String location, String image, String itemtype) {
+    public Member(String name, String location, String itemtype, String image) {
         this.name = name;
         this.location = location;
-        this.image = image;
         this.itemtype = itemtype;
+        this.image = image;
     }
 
     public String getName() {
@@ -30,19 +30,19 @@ public class Detail {
         this.location = location;
     }
 
+    public String getItemtype() {
+        return itemtype;
+    }
+
+    public void setItemtype(String itemtype) {
+        this.itemtype = itemtype;
+    }
+
     public String getImage() {
         return image;
     }
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public String getItemType() {
-        return itemtype;
-    }
-
-    public void setItemType(String itemtype) {
-        this.itemtype = itemtype;
     }
 }

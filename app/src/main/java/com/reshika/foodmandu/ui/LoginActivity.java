@@ -12,9 +12,17 @@ import android.widget.Toast;
 
 import com.reshika.foodmandu.MainActivity;
 import com.reshika.foodmandu.R;
+import com.reshika.foodmandu.api.UserApi;
 import com.reshika.foodmandu.bll.LoginBll;
+import com.reshika.foodmandu.model.username;
+import com.reshika.foodmandu.serverresponse.SignUpResponse;
 import com.reshika.foodmandu.strictmode.StrictModeClass;
 import com.reshika.foodmandu.ui.home.HomeFragment;
+import com.reshika.foodmandu.url.Url;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 TextView txtView;
@@ -53,16 +61,32 @@ Button btnlogin;
 
         LoginBll loginBll=new LoginBll();
 
+        com.reshika.foodmandu.model.username Username=new username(username,password);
+
         StrictModeClass.StrictMode();
-        if (etUsername.getText().toString()!=null){
-            loginBll.checkUser(username,password);
-            Intent intent= new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-      //      finish();
-        }
-        else {
-            Toast.makeText(this, "Either username or password is incorrect", Toast.LENGTH_SHORT).show();
-            etUsername.requestFocus();
-        }
+
+        UserApi userapi= Url.getInstance().create(UserApi.class);
+        Call<SignUpResponse> userCall=userapi.checklogin(Username);
+        userCall.enqueue(new Callback<SignUpResponse>() {
+            @Override
+            public void onResponse(Call<SignUpResponse> call, Response<SignUpResponse> response) {
+                if (!response.isSuccessful())
+                {
+                    Toast.makeText(LoginActivity.this, "Code", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                Url.token += response.body().getToken();
+                Intent intent= new Intent(LoginActivity.this,MainActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(Call<SignUpResponse> call, Throwable t) {
+
+                Toast.makeText(LoginActivity.this, "error is = " + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 }

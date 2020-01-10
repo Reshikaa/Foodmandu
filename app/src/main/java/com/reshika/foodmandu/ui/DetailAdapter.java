@@ -1,6 +1,8 @@
 package com.reshika.foodmandu.ui;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.reshika.foodmandu.R;
 import com.reshika.foodmandu.model.Detail;
+import com.reshika.foodmandu.strictmode.StrictModeClass;
+import com.reshika.foodmandu.url.Url;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.List;
 
 public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailViewHolder> {
@@ -34,10 +41,22 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
     public void onBindViewHolder(@NonNull DetailAdapter.DetailViewHolder holder, int position) {
 
         final Detail detail= detailList.get(position);
-       // holder.card1.setImageResource(detail.getImage());
+        String imgPath= Url.imagePath + detail.getImage();
+        Log.e("Image path is","this is image" + imgPath);
         holder.tvname.setText(detail.getName());
-        holder.tvtitle.setText(detail.getItem());
+        holder.tvtitle.setText(detail.getItemType());
         holder.tvaddress.setText(detail.getLocation());
+
+        StrictModeClass.StrictMode();
+        try{
+            URL url=new URL(imgPath);
+            holder.card1.setImageBitmap(BitmapFactory.decodeStream((InputStream) url.getContent()));
+        }
+
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
 
     }
 

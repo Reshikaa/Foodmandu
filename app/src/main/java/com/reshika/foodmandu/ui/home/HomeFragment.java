@@ -15,13 +15,18 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.reshika.foodmandu.api.NewMembersApi;
 import com.reshika.foodmandu.api.Super;
+import com.reshika.foodmandu.model.Bakery;
 import com.reshika.foodmandu.model.Detail;
+import com.reshika.foodmandu.model.Member;
 import com.reshika.foodmandu.strictmode.StrictModeClass;
+import com.reshika.foodmandu.ui.BakeryAdapter;
 import com.reshika.foodmandu.ui.DetailAdapter;
 import com.reshika.foodmandu.ui.FoodAdapter;
 import com.reshika.foodmandu.R;
 import com.reshika.foodmandu.model.Food;
+import com.reshika.foodmandu.ui.MembersAdapter;
 import com.reshika.foodmandu.url.Url;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;
@@ -42,6 +47,11 @@ public class HomeFragment extends Fragment {
 
     List<Detail> detailList;
     DetailAdapter DetailAdapter;
+
+    List<Member> memberList;
+    MembersAdapter MembersAdapter;
+    ImageView imgmember;
+
     private HomeViewModel homeViewModel;
     ImageView card1;
 
@@ -51,7 +61,7 @@ public class HomeFragment extends Fragment {
     private String [] mImageTitle=new String[]{
             "Liquor","MoMo","Sauce","juice"
     };
-    private RecyclerView recyclerView,recyclerView_a;
+    private RecyclerView recyclerView,recyclerView_a,recyclerView_b,recyclerView_c;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -77,6 +87,9 @@ public class HomeFragment extends Fragment {
 
         recyclerView=view.findViewById(R.id.recyclerView);
         recyclerView_a=view.findViewById(R.id.recyclerView_a);
+        recyclerView_b=view.findViewById(R.id.recyclerView_b);
+        recyclerView_c=view.findViewById(R.id.recyclerView_c);
+
         card1=view.findViewById(R.id.card1);
 
         List<Food> foodList=new ArrayList<>();
@@ -91,6 +104,17 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(foodAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
 
+        List<Bakery> cakeList=new ArrayList<>();
+        cakeList.add(new Bakery(R.drawable.blue));
+        cakeList.add(new Bakery(R.drawable.pas));
+        cakeList.add(new Bakery(R.drawable.chic));
+        cakeList.add(new Bakery(R.drawable.cross));
+
+        BakeryAdapter bakeryAdapter=new BakeryAdapter(getContext(),cakeList);
+        recyclerView_b.setAdapter(bakeryAdapter);
+        recyclerView_b.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+
+
 //        homeViewModel =
 //                ViewModelProviders.of(this).get(HomeViewModel.class);
 //        View root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -103,6 +127,7 @@ public class HomeFragment extends Fragment {
 //        });
 
         super7();
+        newmember();
         return view;
     }
 
@@ -110,36 +135,6 @@ public class HomeFragment extends Fragment {
         detailList=new ArrayList<>();
 
         Super s= Url.getInstance().create(Super.class);
-
-        Call<Detail> listCall1=s.getImage(imagePath);
-
-        listCall1.enqueue(new Callback<Detail>() {
-            @Override
-            public void onResponse(Call<Detail> call, Response<Detail> response) {
-                if (!response.isSuccessful()){
-                    Toast.makeText(getActivity(), "Code", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                String imagepath= imagePath + response.body().getImage();
-                StrictModeClass.StrictMode();
-                try {
-                    URL url= new URL(imagepath);
-                    card1.setImageBitmap(BitmapFactory.decodeStream((InputStream)url.getContent()));
-                }
-
-                catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Detail> call, Throwable t) {
-
-                Toast.makeText(getActivity(), "Error" + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
         Call<List<Detail>> listCall=s.getSuper7();
         listCall.enqueue(new Callback<List<Detail>>() {
             @Override
@@ -167,6 +162,36 @@ public class HomeFragment extends Fragment {
         });
 
 
+
+    }
+
+    private void newmember(){
+        memberList = new ArrayList();
+        NewMembersApi membersApi=Url.getInstance().create(NewMembersApi.class);
+
+        Call<List<Member>> listCall3= membersApi.getNewMembers();
+
+        listCall3.enqueue(new Callback<List<Member>>() {
+            @Override
+            public void onResponse(Call<List<Member>> call, Response<List<Member>> response) {
+                if (!response.isSuccessful()){
+                    Toast.makeText(getContext(), "Error" + response.code(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                List<Member> memberList1=response.body();
+                MembersAdapter = new MembersAdapter(getContext(),memberList1);
+                recyclerView_c.setAdapter(MembersAdapter);
+                recyclerView_c.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+            }
+
+            @Override
+            public void onFailure(Call<List<Member>> call, Throwable t) {
+
+                Log.d("Error message","Error" + t.getLocalizedMessage());
+                Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 }
